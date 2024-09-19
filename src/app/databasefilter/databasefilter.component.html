@@ -1,0 +1,46 @@
+<div class="pl-10 pr-10 pb-10">
+
+    <div class="flex gap-2 pb-4 bt-8">
+
+        <div class="w-full max-w-sm min-w-[200px]">
+            <input
+                class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+                placeholder="Type here...">
+        </div>
+        <button
+            class="rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
+            type="button">
+            Filter
+        </button>
+    </div>
+
+    <div class="relative flex flex-col w-full h-full text-gray-700 bg-white shadow-md rounded-xl bg-clip-border">
+
+        <div class="w-full h-[80vh] overflow-scroll">
+            <div  class="w-max table-auto">
+
+                <div class="flex">
+                    <div *ngFor="let pipeReport of allPipeReport index as i">
+                        <app-filter (filtersOutput)="filter($event)" *ngIf="getKeyName(pipeReport, i) != 'id'"
+                            title="{{getKeyName(pipeReport, i)}}" [listOfFilter]="allPipeReport" />
+                    </div>
+                </div>
+
+                <div *ngIf="loading">
+                <div *ngFor="let pipeReportColumn of allPipeReport index as i">
+                    <div class="flex">
+
+                        <div class="flex" *ngFor="let pipeReportRow of allPipeReport index as i">
+                            <div *ngIf="getKeyName(pipeReportColumn, i) != 'id'"
+                                class="w-60 p-4 border-b border-blue-gray-50 block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                                {{getList(pipeReportColumn, getKeyName(pipeReportColumn,i)) | titlecase}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div></div>
+
+        </div>
+    </div>
+
+</div>
