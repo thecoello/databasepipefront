@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { DatabasefilterComponent } from './databasefilter/databasefilter.component';
+import { TableDataComponent } from './table-data/table-data.component';
 
 export const routes: Routes = [
-    {path:'filterdata', component: DatabasefilterComponent}
+    {path:'filterdata', component: TableDataComponent}
 ];

@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 
 @Injectable()
 export class HttpService {
-    private url:string =  'http://127.0.0.1:8080/api'
+    private url:string =  'http://127.0.0.1:8000/api'
     
     constructor(private http: HttpClient) { }
 
