@@ -16,10 +16,13 @@ import { FormsModule, NgModel } from '@angular/forms';
 export class FilterComponent implements IFilterAngularComp {
   
   params!: IFilterParams;
-  filter = 'All'
+  filter:string = 'All'
+  
   setFilter?:string
   filters:Array<string> = []
   nameToFilter?: string
+
+  filtersArr:Array<string> = []
 
 
   agInit(params: IFilterParams): void {
@@ -35,21 +38,34 @@ export class FilterComponent implements IFilterAngularComp {
     })
   }
 
+  changefilter(filterText: string){
+    this.filter = filterText
+    this.setFilter = filterText
+
+    
+    if(!this.filtersArr.includes(this.filter)){
+        this.filtersArr.push(this.filter)
+    }else{
+      this.filtersArr.splice(this.filtersArr.indexOf(this.filter), 1)
+    }
+
+    if(this.filtersArr.length == 0){
+      this.filter = 'All'
+    }
+    
+    this.params.filterChangedCallback()
+  }
+
   isFilterActive(): boolean {
     return this.filter === this.setFilter;
   }
 
   doesFilterPass(params: IDoesFilterPassParams): boolean {
-    return params.data[this.nameToFilter!].includes(['prueba 1', 'prueba 2'])
+    return this.filtersArr.includes(params.data[this.nameToFilter!])
   }
 
   getModel() { }
 
   setModel(model: any) {}
-
-  updateFilter() {
-    this.params.filterChangedCallback();
-  }
-
 
 }

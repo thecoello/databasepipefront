@@ -6,14 +6,13 @@
 
   </div>
 
-  <div class="w-full h-[80vh] overflow-auto">
+  <div class="w-full h-[80vh] overflow-x-scroll capitalize">
     <ag-grid-angular
     style="width: 100%; height: 100%;"
     [class]="'ag-theme-quartz'"
     [rowData]="rowData"
     [getRowId]="getRowId"
     [columnDefs]="colDefs"
-    [defaultColDef]="{flex: 1}"
     (gridReady)="onGridReady($event)"
 />
   </div>

@@ -2,7 +2,7 @@ import { Component } from '@angular/core'
 import { HttpService } from '../services/httpService'
 import PipeReport from '../models/pipereport'
 import { AgGridAngular } from 'ag-grid-angular'
-import { ColDef, GetRowIdFunc, GetRowIdParams, GridApi, GridReadyEvent } from 'ag-grid-community'
+import { ColDef, GetRowIdFunc, GetRowIdParams, GridApi, GridOptions, GridReadyEvent } from 'ag-grid-community'
 import 'ag-grid-community/styles/ag-grid.css'
 import 'ag-grid-community/styles/ag-theme-quartz.css'
 import { FilterComponent } from '../components/filter/filter.component'
@@ -16,6 +16,8 @@ import { FilterComponent } from '../components/filter/filter.component'
 })
 export class TableDataComponent {
   private gridApi!: GridApi
+  private gridOptions!: GridOptions
+
   allPipeReport?: Array<PipeReport> | Array<any>
   colDefs: ColDef<PipeReport>[] = []
   rowData?: Array<PipeReport>
@@ -42,7 +44,7 @@ export class TableDataComponent {
             listFilter.push(PipeReport[title])
           });
          
-          _colDefs.push({ field: title, filter: FilterComponent, headerName: title })
+          _colDefs.push({ field: title, filter: FilterComponent, headerName: title})
         })
 
         this.colDefs = _colDefs
