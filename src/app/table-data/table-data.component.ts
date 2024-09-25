@@ -6,11 +6,12 @@ import { ColDef, GetRowIdFunc, GetRowIdParams, GridApi, GridOptions, GridReadyEv
 import 'ag-grid-community/styles/ag-grid.css'
 import 'ag-grid-community/styles/ag-theme-quartz.css'
 import { FilterComponent } from '../components/filter/filter.component'
+import { NgIf } from '@angular/common'
 
 @Component({
   selector: 'app-table-data',
   standalone: true,
-  imports: [AgGridAngular,FilterComponent],
+  imports: [AgGridAngular,FilterComponent, NgIf],
   templateUrl: './table-data.component.html',
   styleUrl: './table-data.component.css',
 })
@@ -27,6 +28,10 @@ export class TableDataComponent {
   constructor(private httpService: HttpService) { }
 
   ngOnInit(): void {
+    this.gridOptions = {
+      suppressColumnVirtualisation: true,
+      suppressRowVirtualisation: true,
+    }
     this.getData()
   }
 
@@ -36,19 +41,24 @@ export class TableDataComponent {
         this.allPipeReport = response
 
         const _colDefs: Array<ColDef> = []
-        const listFilter: Array<string> = []
-    
-        Object.keys(this.allPipeReport![0]).forEach(title => {
-
-          this.allPipeReport!.forEach((PipeReport, i) => {
-            listFilter.push(PipeReport[title])
-          });
-         
-          _colDefs.push({ field: title, filter: FilterComponent, headerName: title})
-        })
 
         this.colDefs = _colDefs
         this.rowData = this.allPipeReport
+    
+        Object.keys(this.allPipeReport![0]).forEach((title) => {
+
+          const filterCount: any[] = []
+
+          this.allPipeReport!.forEach(element => {
+
+            if(!filterCount.includes(element[title])){
+              filterCount.push(element[title])
+            }           
+          });
+
+          let filter =  title == 'id' ? null : filterCount.length >= 1000 ? 'text' : FilterComponent               
+          _colDefs.push({ field: title, filter: filter, headerName: title})
+        })
 
       },
       error: (error) => {

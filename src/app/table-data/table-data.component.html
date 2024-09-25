@@ -1,8 +1,13 @@
 <div class="w-100 pl-10 pr-10 pb-10 ">
 
-  <div class="w-100 mb-4">
+  <div class="w-100 mb-4 flex items-center justify-start gap-4">
       
       <button class="rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" (click)="onBtnExportCsv()">Download CSV file</button>
+
+      <p class="m-0 p-0">Total results: {{rowData?.length ? rowData?.length : 'Loading...'}}</p>
+
+      <p class="m-0 p-0">Total columns: {{colDefs.length ? colDefs.length : 'Loading...'}}</p>
+
 
   </div>
 

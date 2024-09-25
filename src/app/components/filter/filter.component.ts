@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, input, OnInit, Optional, Output } from 
 import PipeReport from '../../models/pipereport';
 import { Filters } from '../../models/filters';
 import { IFilterAngularComp } from 'ag-grid-angular';
-import { IFilterParams, AgPromise, IDoesFilterPassParams, IAfterGuiAttachedParams, RowNode } from 'ag-grid-community';
+import { IFilterParams, AgPromise, IDoesFilterPassParams, IAfterGuiAttachedParams, RowNode, GridOptions, GridApi } from 'ag-grid-community';
 import { FormsModule, NgModel } from '@angular/forms';
 
 @Component({
@@ -17,6 +17,8 @@ export class FilterComponent implements IFilterAngularComp {
   
   params!: IFilterParams;
   filter:string = 'All'
+  private gridApi!: GridApi
+
   
   setFilter?:string
   filters:Array<string> = []
@@ -24,14 +26,16 @@ export class FilterComponent implements IFilterAngularComp {
 
   filtersArr:Array<string> = []
 
-
   agInit(params: IFilterParams): void {
     this.params = params    
     this.nameToFilter = this.params.column.getColId()
+    this.setFilters()
+  }
 
+  setFilters(){
     this.params.api.forEachNode((rownode)=>{
 
-      if(!this.filters.includes(rownode.data[this.nameToFilter!])){
+      if(!this.filters.includes(rownode.data[this.nameToFilter!]) && rownode.data[this.nameToFilter!] != ''){
         this.filters.push(rownode.data[this.nameToFilter!])
       }
 
@@ -41,6 +45,8 @@ export class FilterComponent implements IFilterAngularComp {
   changefilter(filterText: string){
     this.filter = filterText
     this.setFilter = filterText
+
+    //this.params.api.hidePopupMenu()
 
     
     if(!this.filtersArr.includes(this.filter)){
