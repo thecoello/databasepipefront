@@ -1,15 +1,15 @@
 import { NgFor, NgIf, TitleCasePipe } from '@angular/common';
-import { Component, EventEmitter, Input, input, OnInit, Optional, Output } from '@angular/core';
-import PipeReport from '../../models/pipereport';
-import { Filters } from '../../models/filters';
+import { Component} from '@angular/core';
 import { IFilterAngularComp } from 'ag-grid-angular';
-import { IFilterParams, AgPromise, IDoesFilterPassParams, IAfterGuiAttachedParams, RowNode, GridOptions, GridApi } from 'ag-grid-community';
+import { IFilterParams, IDoesFilterPassParams, GridApi } from 'ag-grid-community';
 import { FormsModule, NgModel } from '@angular/forms';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+
 
 @Component({
   selector: 'app-filter',
   standalone: true,
-  imports: [NgIf, NgFor, TitleCasePipe, FormsModule],
+  imports: [NgIf, NgFor, TitleCasePipe, FormsModule, ScrollingModule],
   templateUrl: './filter.component.html',
   styleUrl: './filter.component.css'
 })

@@ -49,16 +49,10 @@ export class TableDataComponent {
 
           const filterCount: any[] = []
 
-          this.allPipeReport!.forEach(element => {
+          _colDefs.push({ field: title, filter: title == 'id' ? null : FilterComponent, headerName: title})
 
-            if(!filterCount.includes(element[title])){
-              filterCount.push(element[title])
-            }           
-          });
-
-          let filter =  title == 'id' ? null : filterCount.length >= 1000 ? 'text' : FilterComponent               
-          _colDefs.push({ field: title, filter: filter, headerName: title})
         })
+        
 
       },
       error: (error) => {
