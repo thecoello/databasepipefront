@@ -4,6 +4,7 @@ import { IFilterAngularComp } from 'ag-grid-angular';
 import { IFilterParams, IDoesFilterPassParams, GridApi } from 'ag-grid-community';
 import { FormsModule, NgModel } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { toNumber } from 'ag-grid-community/dist/types/core/utils/number';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class FilterComponent implements IFilterAngularComp {
   
   params!: IFilterParams;
   filter:string = 'All'
-  private gridApi!: GridApi
+  height:number = 0
 
   
   setFilter?:string
@@ -38,8 +39,9 @@ export class FilterComponent implements IFilterAngularComp {
       if(!this.filters.includes(rownode.data[this.nameToFilter!]) && rownode.data[this.nameToFilter!] != ''){
         this.filters.push(rownode.data[this.nameToFilter!])
       }
-
     })
+    this.height = this.filters.length <= 10 ? parseInt(`${(this.filters.length * 2) + 6}`) : parseInt(`${this.filters.length }`)
+
   }
 
   changefilter(filterText: string){
