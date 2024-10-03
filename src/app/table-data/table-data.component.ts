@@ -7,11 +7,13 @@ import 'ag-grid-community/styles/ag-grid.css'
 import 'ag-grid-community/styles/ag-theme-quartz.css'
 import { FilterComponent } from '../components/filter/filter.component'
 import { NgIf } from '@angular/common'
+import { DivideStringSymbol } from '../components/pipes/divideStringSymbol'
+import { UploadfileComponent } from '../uploadfile/uploadfile.component'
 
 @Component({
   selector: 'app-table-data',
   standalone: true,
-  imports: [AgGridAngular,FilterComponent, NgIf],
+  imports: [AgGridAngular,FilterComponent, NgIf, DivideStringSymbol, UploadfileComponent],
   templateUrl: './table-data.component.html',
   styleUrl: './table-data.component.css',
 })
@@ -49,7 +51,7 @@ export class TableDataComponent {
 
           const filterCount: any[] = []
 
-          _colDefs.push({ field: title, filter: title == 'id' ? null : FilterComponent, headerName: title})
+          _colDefs.push({ field: title, filter: title == 'id' ? null : FilterComponent, headerName: new DivideStringSymbol().transform(title)})
 
         })
         

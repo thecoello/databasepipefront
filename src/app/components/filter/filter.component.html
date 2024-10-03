@@ -1,13 +1,13 @@
-<p class="m-0 pl-2 pr-2 pt-2">Filter By {{nameToFilter}}</p>
+<p class="m-0 pl-2 pr-2 pt-2">Filter By <b>{{nameToFilter! | DivideStringSymbol}}</b></p>
 
 <cdk-virtual-scroll-viewport [itemSize]="0" class="ml-4 mg-4 mb-4 flex flex-col gap-2 max-h-[43vh] min-h-[5vh]"
     [style.height.vh]="height">
     <p *ngIf="filters.length == 0" class="text-center pt-4 m-0"><b>Empty</b></p>
     <div *cdkVirtualFor="let filterName of filters index as i">
-        <div (click)="changefilter(filterName)" class="flex items-center cursor-pointer relative gap-1 mt-2 mb-2 ">
-            <input type="checkbox"
+        <label class="flex items-center cursor-pointer relative gap-1 mt-2 mb-2 ">
+            <input (click)="changefilter(filterName)" type="checkbox"
                 class="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-slate-300 checked:bg-slate-800 checked:border-slate-800"
-                id="{{filterName}}" [checked]="filterName == filter ? true : false" />
+                id="{{filterName}}" [checked]="filtersArr.includes(filterName) ? true : false" />
             <span class="absolute text-white opacity-0 peer-checked:opacity-100 left-1">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor"
                     stroke="currentColor" stroke-width="1">
@@ -16,8 +16,8 @@
                         clip-rule="evenodd"></path>
                 </svg>
             </span>
-            {{filterName}}
-        </div>
+            {{filterName == '' ? 'Empty' :  filterName}}
+        </label>
 
 
     </div>

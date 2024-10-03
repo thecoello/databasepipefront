@@ -28,7 +28,7 @@
               "@angular/material/prebuilt-themes/pink-bluegrey.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": ["./node_modules/@material-tailwind/html/scripts/dialog.js"]
           },
           "configurations": {
             "production": {
@@ -88,7 +88,7 @@
               "@angular/material/prebuilt-themes/pink-bluegrey.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": ["./node_modules/@material-tailwind/html/scripts/dialog.js"]
           }
         }
       }
