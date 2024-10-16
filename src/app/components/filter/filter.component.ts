@@ -21,7 +21,6 @@ export class FilterComponent implements IFilterAngularComp {
   filter: string = 'All'
   height: number = 0
 
-
   setFilter?: string
   filters: Array<string> = []
   nameToFilter?: string
