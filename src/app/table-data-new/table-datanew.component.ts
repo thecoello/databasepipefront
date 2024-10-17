@@ -10,6 +10,9 @@ import { NgFor, NgIf } from '@angular/common'
 import { DivideStringSymbol } from '../components/pipes/divideStringSymbol'
 import { UploadfileComponent } from '../uploadfile/uploadfile.component'
 import { FilterExternalComponent } from '../components/filter-external/filter-external.component'
+import { Filters } from '../models/filters'
+
+var salesRegion: Array<Filters>
 
 @Component({
   selector: 'app-table-datanew',
@@ -25,35 +28,54 @@ export class TableDataNewComponent {
   colDefs: ColDef<any>[] = []
   rowData?: Array<any>
   loading?: boolean = true
-  filterArr?:Array<any>
-  constructor(private httpService: HttpService, ) {}
+  filters?: Array<Filters> = []
+  filtersMultiArr?: Array<string>
+
+  constructor(private httpService: HttpService,) { }
 
   ngOnInit(): void {
     this.gridOptions = {
       suppressColumnVirtualisation: true,
       suppressRowVirtualisation: true,
     }
-    this.getData() 
+    this.getData()
   }
 
-
-  setExternalFilter(event: any){
-    this.filterArr = event
+  setExternalFilter(event: any) {
+    console.log(event)
+    salesRegion = event
+    this.gridApi?.onFilterChanged();
   }
-
 
   doesExternalFilterPass(node: any): boolean {
+
+    let filtersToApply: any
+
     if (node.data) {
-      const array = ['50475760', '50472475'];
-      const even = (element: any) => node.data["﻿customer_id"] === element;
-      return array.some(even)
+
+      salesRegion.forEach((filters) => {
+        const array = filters?.filters!
+        const even = (element: any) => node.data[filters.title!] === element;
+        filtersToApply = array.some(even)
+      });
+
+      return filtersToApply
     }
     return true;
-
   }
 
   isExternalFilterPresent(): boolean {
-    return true
+    return salesRegion && salesRegion.length > 0 ? true : false
+  }
+
+  setFilter(columnName: string) {
+    const filter: Array<any> = []
+    this.gridApi.forEachNode((row: any) => {
+      if (!filter.includes(row.data[columnName])) {
+        filter.push(row.data[columnName])
+      }
+    })
+    return filter
   }
 
   getData() {
@@ -68,21 +90,12 @@ export class TableDataNewComponent {
           const filterCount: any[] = []
           _colDefs.push({ field: title, filter: title == 'id' ? null : FilterComponent, headerName: new DivideStringSymbol().transform(title) })
         })
+
       },
       error: (error) => {
         console.error(error)
       }
     })
-  }
-
-  setFilter(columnName: string){
-    const filter:Array<any> = []
-    this.rowData!.forEach((row)=>{
-      if(!filter.includes(row[columnName])){
-        filter.push(row[columnName])
-      }
-    })
-    return filter
   }
 
   onBtnExportCsv() {
