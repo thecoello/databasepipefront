@@ -41,33 +41,6 @@ export class TableDataNewComponent {
     this.getData()
   }
 
-  setExternalFilter(event: any) {
-    console.log(event)
-    salesRegion = event
-    this.gridApi?.onFilterChanged();
-  }
-
-  doesExternalFilterPass(node: any): boolean {
-
-    let filtersToApply: any
-
-    if (node.data) {
-
-      salesRegion.forEach((filters) => {
-        const array = filters?.filters!
-        const even = (element: any) => node.data[filters.title!] === element;
-        filtersToApply = array.some(even)
-      });
-
-      return filtersToApply
-    }
-    return true;
-  }
-
-  isExternalFilterPresent(): boolean {
-    return salesRegion && salesRegion.length > 0 ? true : false
-  }
-
   setFilter(columnName: string) {
     const filter: Array<any> = []
     this.gridApi.forEachNode((row: any) => {
@@ -86,9 +59,11 @@ export class TableDataNewComponent {
         this.rowData = response
         this.colDefs = _colDefs
 
+
         Object.keys(this.rowData![0]).forEach((title) => {
+
           const filterCount: any[] = []
-          _colDefs.push({ field: title, filter: title == 'id' ? null : FilterComponent, headerName: new DivideStringSymbol().transform(title) })
+          _colDefs.push({ field: title, filter: title == 'id' ? null : FilterComponent, headerName: new DivideStringSymbol().transform(title)})
         })
 
       },
@@ -102,9 +77,11 @@ export class TableDataNewComponent {
     this.gridApi.exportDataAsCsv()
   }
 
+
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
   }
+
 
   public getRowId: GetRowIdFunc = (params: GetRowIdParams) =>
     String(params.data.id);

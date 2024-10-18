@@ -27,6 +27,9 @@ export class FilterComponent implements IFilterAngularComp {
 
   filtersArr: Array<string> = []
 
+  modelfilter:boolean = false
+
+
   agInit(params: IFilterParams): void {
     this.params = params
     this.nameToFilter = this.params.column.getColId()
@@ -58,12 +61,13 @@ export class FilterComponent implements IFilterAngularComp {
     if (this.filtersArr.length == 0) {
       this.filter = 'All'
     }
+
     this.setFilters()
     this.params.filterChangedCallback()
   }
 
   isFilterActive(): boolean {
-    return this.filter === this.setFilter;
+    return this.filter === this.setFilter || this.modelfilter;
   }
 
   doesFilterPass(params: IDoesFilterPassParams): boolean {
@@ -72,6 +76,15 @@ export class FilterComponent implements IFilterAngularComp {
 
   getModel() { }
 
-  setModel(model: any) { }
+  setModel(model: any) {
+    this.filtersArr = model.values
+
+    if(this.filtersArr.length > 0 ){
+      this.modelfilter = true
+      this.params.filterChangedCallback()
+
+    }
+    console.log(this.filter)
+  }
 
 }

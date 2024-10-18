@@ -1,9 +1,10 @@
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { GridApi } from 'ag-grid-community';
+import { GridApi, IDoesFilterPassParams, IFilterParams } from 'ag-grid-community';
 import { DivideStringSymbol } from '../pipes/divideStringSymbol';
 import { Filters } from '../../models/filters';
+import { IFilterAngularComp } from 'ag-grid-angular';
 
 @Component({
   selector: 'app-filter-external',
@@ -15,17 +16,20 @@ import { Filters } from '../../models/filters';
 export class FilterExternalComponent {
   @Input() row?: string
   @Input() gridApi?: GridApi
-  @Input() data?:Array<string>
+  @Input() data?: Array<string>
   @Input() nameFilter?: string
-  @Output() externalFilter = new EventEmitter<Array<Filters>>();
+  @Output() externalFilter = new EventEmitter<any>();
 
-  show:boolean = false
+  show: boolean = false
   filtersArr: Array<string> = []
   height: number = 0
-  filters:Filters = new Filters()
   filtersMultiArr?: Array<Filters> = []
-
   filtersLeft?: Array<string> = []
+  filter: string = 'All'
+  setFilter?: string
+  params!: IFilterParams;
+  filters: Array<string> = []
+
 
   externalFilterChanged(newValue: string) {
 
@@ -34,26 +38,22 @@ export class FilterExternalComponent {
     } else {
       this.filtersArr.splice(this.filtersArr.indexOf(newValue), 1)
     }
-
-    this.filters.title = this.nameFilter
-    this.filters.filters = this.filtersArr
-
-    if (!this.filtersMultiArr!.includes(this.filters)) {
-      this.filtersMultiArr!.push(this.filters)
-    }
-
+    this.gridApi!
+    .setColumnFilterModel(this.nameFilter!, { values: this.filtersArr })
+    .then(()=>{
+      this.gridApi!.onFilterChanged();
+    })    
+    
     if(this.filtersArr.length == 0){
-      this.filtersMultiArr = []
+      this.gridApi?.destroyFilter(this.nameFilter!)
     }
-
-    this.externalFilter.emit(this.filtersMultiArr!)
   }
-  
 
-  showFilter(){
-    if(!this.show){
+
+  showFilter() {
+    if (!this.show) {
       this.show = true
-    }else{
+    } else {
       this.show = false
     }
   }
