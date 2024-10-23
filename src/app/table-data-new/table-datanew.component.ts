@@ -30,6 +30,7 @@ export class TableDataNewComponent {
   loading?: boolean = true
   filters?: Array<Filters> = []
   filtersMultiArr?: Array<string>
+  a: any
 
   constructor(private httpService: HttpService,) { }
 
@@ -43,11 +44,17 @@ export class TableDataNewComponent {
 
   setFilter(columnName: string) {
     const filter: Array<any> = []
+
     this.gridApi.forEachNode((row: any) => {
       if (!filter.includes(row.data[columnName])) {
         filter.push(row.data[columnName])
       }
     })
+
+    const sortArr = filter.sort(function (a, b) {
+      return a.localeCompare(b)
+    })
+    
     return filter
   }
 
@@ -62,8 +69,12 @@ export class TableDataNewComponent {
 
         Object.keys(this.rowData![0]).forEach((title) => {
 
-          const filterCount: any[] = []
-          _colDefs.push({ field: title, filter: title == 'id' ? null : FilterComponent, headerName: new DivideStringSymbol().transform(title)})
+          if (title != 'id') {
+            const filterCount: any[] = []
+            _colDefs.push({ field: title, filter: FilterComponent, headerName: new DivideStringSymbol().transform(title) })
+          }
+
+
         })
 
       },

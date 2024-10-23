@@ -1,5 +1,5 @@
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf, TitleCasePipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { GridApi, IDoesFilterPassParams, IFilterParams } from 'ag-grid-community';
 import { DivideStringSymbol } from '../pipes/divideStringSymbol';
@@ -9,7 +9,7 @@ import { IFilterAngularComp } from 'ag-grid-angular';
 @Component({
   selector: 'app-filter-external',
   standalone: true,
-  imports: [NgFor, NgIf, ScrollingModule, DivideStringSymbol],
+  imports: [NgFor, NgIf, ScrollingModule, DivideStringSymbol, TitleCasePipe],
   templateUrl: './filter-external.component.html',
   styleUrl: './filter-external.component.css'
 })
