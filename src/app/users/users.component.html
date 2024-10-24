@@ -1,0 +1,48 @@
+
+<div class="w-full h-[80vh] flex flex-col items-center justify-center">
+    <div class="bg-white border-2 rounded-lg w-[30vw] h-[80vh] flex flex-col items-start gap-2 pt-0 p-8 overflow-x-hidden overflow-y-auto">
+
+        <h4 class="block text-xl font-medium text-slate-800 sticky top-0 bg-white pt-8 pb-4 w-full">
+            List of users
+        </h4>
+
+        <div *ngFor="let user of users" class="w-full flex border-2 pl-4 pr-4 pt-4 pb-4 justify-between rounded-lg">
+            <div class="w-[50%] flex items-center">
+                <div class="flex flex-col">
+                    <p class="text-lg text-slate-600">{{user.name}}</p>
+                    <p class="text-sm text-slate-600">{{user.email}}</p>
+                </div>
+            </div>
+            <div class="w-[50%] flex items-center justify-end gap-2">
+                <button (click)="setNewPassword(user.email!, user.id!)"
+                    class="rounded-md bg-gray-800 py-2 p-2 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-gray-700 focus:shadow-none active:bg-gray-700 hover:bg-gray-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    type="button">
+                    Reset password
+                </button>
+
+                <button (click)="deleteUser(user.email!, user.id!)"
+                    class="rounded-md  py-2 p-2 border border-red-500 text-center text-sm text-red-500 "
+                    type="button">
+                    Delete user
+                </button>
+            </div>
+
+        </div>
+
+     
+    </div>
+
+    <div class="w-[30vw] flex items-center justify-start gap-2 pt-2">
+        <button [disabled]="prevPage == url || !prevPage" (click)="setPrevPage()"
+            class="rounded-md bg-gray-800 py-2 p-2 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-gray-700 focus:shadow-none active:bg-gray-700 hover:bg-gray-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            type="button">
+            Prev page
+        </button>
+
+        <button [disabled]="nextPage == url || !nextPage" (click)="setNextPage()"
+            class="rounded-md bg-gray-800 py-2 p-2 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-gray-700 focus:shadow-none active:bg-gray-700 hover:bg-gray-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            type="button">
+            Next page
+        </button>
+    </div>
+</div>
