@@ -42,6 +42,7 @@ export class UsersComponent implements OnInit {
       this.httpService.deleteUser(id!).subscribe({
         next:(response)=>{
           alert(`The user [[${email}]] has been deleted`)
+          location.reload()
         },
         error:()=>{
           alert(`An error occurred while trying to delete the user.`)
