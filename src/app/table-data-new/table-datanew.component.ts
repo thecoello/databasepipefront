@@ -35,11 +35,14 @@ export class TableDataNewComponent {
   constructor(private httpService: HttpService,) { }
 
   ngOnInit(): void {
+
+    this.getData()
+
     this.gridOptions = {
       suppressColumnVirtualisation: true,
       suppressRowVirtualisation: true,
     }
-    this.getData()
+ 
   }
 
   setFilter(columnName: string) {
@@ -66,20 +69,16 @@ export class TableDataNewComponent {
         this.rowData = response
         this.colDefs = _colDefs
 
-
         Object.keys(this.rowData![0]).forEach((title) => {
-
           if (title != 'id') {
             const filterCount: any[] = []
             _colDefs.push({ field: title, filter: FilterComponent, headerName: new DivideStringSymbol().transform(title) })
           }
-
-
         })
 
       },
-      error: (error) => {
-        console.error(error)
+      error: ()=>{
+        location.reload()
       }
     })
   }

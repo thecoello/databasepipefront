@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../services/httpService';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgClass, NgFor, NgIf } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -17,13 +18,24 @@ export class LoginComponent {
   loading?:Boolean = false
   responseOk?:Boolean = false
 
-  constructor(private httpService: HttpService, private formBuilder: FormBuilder) { }
+  constructor(private httpService: HttpService, private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
-     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-    });
+
+    this.loading = true
+
+    if(localStorage.getItem('token') && localStorage.getItem('userid')){
+      this.router.navigate(['/filterdata'])
+    }else{
+      this.loading = false
+      this.loginForm = this.formBuilder.group({
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', Validators.required],
+      });
+    }
+
+
+    
   }
 
   login(){
@@ -40,9 +52,14 @@ export class LoginComponent {
           localStorage.setItem('token',response.token)
           localStorage.setItem('userid',response.user_id)
 
-          if(localStorage.getItem('token') && localStorage.getItem('userid')){
-            window.location.reload()
-          }
+          this.loading = true
+
+          setTimeout(() => {
+            if(localStorage.getItem('token') && localStorage.getItem('userid')){
+              this.router.navigate(['/filterdata'])
+            }
+          }, 1000);
+
         },
         error:(response)=>{
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { HttpService } from './services/httpService';
 import { User } from './models/user';
 import { NgIf, TitleCasePipe } from '@angular/common';
@@ -7,7 +7,7 @@ import { NgIf, TitleCasePipe } from '@angular/common';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NgIf, TitleCasePipe],
+  imports: [RouterOutlet, NgIf, TitleCasePipe, RouterLink],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -33,12 +33,12 @@ export class AppComponent implements OnInit {
 
   manageUrl(){
 
-      location.pathname.replace('/','') == ('uploadfile') && this.user.usertype != 'ADMIN' ? this.router.navigate(['/filterdata']) : null
-      location.pathname.replace('/','') == ('users') && this.user.usertype != 'ADMIN' ? this.router.navigate(['/filterdata']) : null
-      location.pathname.replace('/','') == ('createuser') && this.user.usertype != 'ADMIN' ? this.router.navigate(['/filterdata']) : null
-      location.pathname.replace('/','') == ('') && this.id && this.token ? this.router.navigate(['/filterdata']) : null
-      location.pathname.replace('/','') == ('filterdata') && !this.id && !this.token ? this.router.navigate(['/']) : null
-      location.pathname.includes('/user/') && !this.id && !this.token ? this.router.navigate(['/']) : null
+      location.href.includes('uploadfile') && this.user.usertype != 'ADMIN' ? this.router.navigate(['/filterdata']) : null
+      location.href.includes('users') && this.user.usertype != 'ADMIN' ? this.router.navigate(['/filterdata']) : null
+      location.href.includes('createuser') && this.user.usertype != 'ADMIN' ? this.router.navigate(['/filterdata']) : null
+      location.href.split('/').splice(-1)[0] == ('') && this.id && this.token ? this.router.navigate(['/filterdata']) : null
+      location.href.includes('filterdata') && !this.id && !this.token ? this.router.navigate(['/']) : null
+      location.href.includes('/user/') && !this.id && !this.token ? this.router.navigate(['/']) : null
  
   }
 
@@ -51,7 +51,7 @@ export class AppComponent implements OnInit {
         },error: () => {
           localStorage.removeItem('token')
           localStorage.removeItem('userid')
-          this.router.navigate(['/'])
+          this.router.navigate(['/filterdata'])
         }
       })
   }

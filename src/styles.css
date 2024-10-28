@@ -1,7 +1,12 @@
+@import '../node_modules/ag-grid-community/styles/ag-theme-quartz.css';
+
 /* You can add global styles to this file, and also import other style files */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer base {
 
 body, html{
     @apply bg-neutral-50;
@@ -29,4 +34,6 @@ app-filter{
 .hidescroll{
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+}
+
 }
