@@ -17,7 +17,7 @@ export class UsersComponent implements OnInit {
   prevPage?: string
   nextPage?: string
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {
     this.getData()

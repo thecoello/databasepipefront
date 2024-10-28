@@ -1,5 +1,5 @@
-<div class="w-full h-[50vh] flex flex-col items-center justify-center">
-    <div  *ngIf="!loading && !responseOk" class="bg-white border-2 rounded-lg w-[30vw] max-h-[50vh] flex flex-col gap-2 p-2">
+<div class="w-full h-[80vh] flex flex-col items-center justify-center">
+    <div  *ngIf="!loading && !responseOk" class="bg-white border-2 rounded-lg w-[30vw] flex flex-col gap-2 p-2">
 
         <div class="w-full flex pl-2 pr-2 pt-8 pb-8 justify-center items-center rounded-lg">
 
@@ -34,8 +34,8 @@
                                 <select formControlName="usertype"
                                     [ngClass]="this.userForm?.get('usertype')?.invalid ? 'w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-red-200 rounded pl-3 pr-8 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer' : 'w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer'">
                                     <option [defaultSelected]="true" disabled>Select a option</option>
-                                    <option value="user">User</option>
-                                    <option value="admin">Admin</option>
+                                    <option value="USER">User</option>
+                                    <option value="ADMIN">Admin</option>
                                 </select>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.2" stroke="currentColor"
