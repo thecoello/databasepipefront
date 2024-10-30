@@ -6,7 +6,7 @@ import Login from "../models/login";
 
 @Injectable()
 export class HttpService {
-  private url: string = 'http://127.0.0.1:8000/api'
+  private url: string = 'https://apitests4hana.tasman.es/api'
   id = localStorage.getItem('userid')
   token = localStorage.getItem('token')?.split(' ')[1]
 

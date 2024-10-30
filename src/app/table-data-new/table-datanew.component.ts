@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, EventEmitter, Output } from '@angular/core'
 import { HttpService } from '../services/httpService'
 import PipeReport from '../models/pipereport'
 import { AgGridAngular } from 'ag-grid-angular'
@@ -31,6 +31,9 @@ export class TableDataNewComponent {
   filters?: Array<Filters> = []
   filtersMultiArr?: Array<string>
   a: any
+  clearFilterArr?:Array<string>
+  countRow?:number
+
 
   constructor(private httpService: HttpService,) { }
 
@@ -72,7 +75,7 @@ export class TableDataNewComponent {
         Object.keys(this.rowData![0]).forEach((title) => {
           if (title != 'id') {
             const filterCount: any[] = []
-            _colDefs.push({ field: title, filter: FilterComponent, headerName: new DivideStringSymbol().transform(title) })
+            _colDefs.push({ field: title, filter: FilterComponent, unSortIcon: true, headerName: new DivideStringSymbol().transform(title) })
           }
         })
 
@@ -81,6 +84,20 @@ export class TableDataNewComponent {
         location.reload()
       }
     })
+  }
+
+  clearFilter(filterName:Array<string>){
+    this.clearFilterArr = filterName
+  }
+
+  clearAll(){
+
+    const allFilter:Array<string> = []
+
+    this.colDefs!.forEach(col => {
+      allFilter.push(col.field!)
+    });
+    this.clearFilterArr = allFilter!
   }
 
   onBtnExportCsv() {

@@ -18,13 +18,12 @@ p{
     @apply m-0 !important;
 }
 
-app-filter{
-    @apply block;
+
+.ag-theme-quartz .ag-header-cell-filter-button{
+    @apply pointer-events-none !important;
+
 }
 
-.ag-header-icon{
-    @apply pointer-events-none;
-}
 /* For Webkit-based browsers (Chrome, Safari and Opera) */
 .hidescroll::-webkit-scrollbar {
     display: none;

@@ -84,7 +84,6 @@ export class FilterComponent implements IFilterAngularComp {
       this.params.filterChangedCallback()
 
     }
-    console.log(this.filter)
   }
 
 }
