@@ -6,7 +6,7 @@ import { ColDef, GetRowIdFunc, GetRowIdParams, GridApi, GridOptions, GridReadyEv
 import 'ag-grid-community/styles/ag-grid.css'
 import 'ag-grid-community/styles/ag-theme-quartz.css'
 import { FilterComponent } from '../components/filter/filter.component'
-import { NgFor, NgIf } from '@angular/common'
+import { NgFor, NgIf, UpperCasePipe } from '@angular/common'
 import { DivideStringSymbol } from '../components/pipes/divideStringSymbol'
 import { UploadfileComponent } from '../uploadfile/uploadfile.component'
 import { FilterExternalComponent } from '../components/filter-external/filter-external.component'
@@ -17,7 +17,7 @@ var salesRegion: Array<Filters>
 @Component({
   selector: 'app-table-datanew',
   standalone: true,
-  imports: [AgGridAngular, FilterComponent, NgIf, NgFor, DivideStringSymbol, UploadfileComponent, FilterExternalComponent],
+  imports: [AgGridAngular, FilterComponent, NgIf, NgFor, DivideStringSymbol, UploadfileComponent, FilterExternalComponent, UpperCasePipe],
   templateUrl: './table-datanew.component.html',
   styleUrl: './table-datanew.component.css',
 })
@@ -72,10 +72,24 @@ export class TableDataNewComponent {
         this.rowData = response
         this.colDefs = _colDefs
 
+        console.log(this.colDefs)
+
         Object.keys(this.rowData![0]).forEach((title) => {
           if (title != 'id') {
             const filterCount: any[] = []
-            _colDefs.push({ field: title, filter: FilterComponent, unSortIcon: true, headerName: new DivideStringSymbol().transform(title) })
+            _colDefs.push({ field: title, filter: FilterComponent, unSortIcon: true, headerName: new DivideStringSymbol().transform(title),
+              cellStyle: title == 'We_have_Win_story_(Global)?_(Source_CRP)' || 
+              title == 'We_have_Go-live_story_(Global)?_(Source_CRP)' || 
+              title == 'We_have_Customer_story?_(Source_CRP)' || 
+              title == 'Customer_is_an_offcial_reference?_(Source_CRP)' ?
+              {'background-color': '#e0e0e0'} : 
+              title == 'Short_description_of_the_real_Business_' || 
+              title == 'Customer_LinkedIn_Account' || 
+              title == 'Customer_Facebook_Account' || 
+              title == 'Customer_X_Account' || 
+              title == 'Customer_Instagram_Account' ?
+              {'background-color': '#bde3f7'} : {}
+          })
           }
         })
 
