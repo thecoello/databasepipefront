@@ -3,11 +3,12 @@ import { FormsModule } from '@angular/forms';
 import { ValidatorForm } from '../packages/validators';
 import { NgFor, NgIf } from '@angular/common';
 import { HttpService } from '../services/httpService';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-uploadfile',
   standalone: true,
-  imports: [FormsModule, NgFor, NgIf],
+  imports: [FormsModule, NgFor, NgIf, RouterLink],
   templateUrl: './uploadfile.component.html',
   styleUrl: './uploadfile.component.css'
 })
@@ -50,7 +51,6 @@ export class UploadfileComponent {
 
     this.httpService.uploadFile(this.fileFormData).subscribe({
       next: (response)=>{
-        console.log(response)
         this.fileUploaded = true
         this.loading = false
       },

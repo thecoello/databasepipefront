@@ -11,13 +11,15 @@ import { DivideStringSymbol } from '../components/pipes/divideStringSymbol'
 import { UploadfileComponent } from '../uploadfile/uploadfile.component'
 import { FilterExternalComponent } from '../components/filter-external/filter-external.component'
 import { Filters } from '../models/filters'
+import { User } from '../models/user'
+import { PopupcellComponent } from '../popupcell/popupcell.component'
 
 var salesRegion: Array<Filters>
 
 @Component({
   selector: 'app-table-datanew',
   standalone: true,
-  imports: [AgGridAngular, FilterComponent, NgIf, NgFor, DivideStringSymbol, UploadfileComponent, FilterExternalComponent, UpperCasePipe],
+  imports: [AgGridAngular, FilterComponent, NgIf, NgFor, DivideStringSymbol, UploadfileComponent, FilterExternalComponent, UpperCasePipe, PopupcellComponent],
   templateUrl: './table-datanew.component.html',
   styleUrl: './table-datanew.component.css',
 })
@@ -33,6 +35,11 @@ export class TableDataNewComponent {
   a: any
   clearFilterArr?:Array<string>
   countRow?:number
+  user?:User = new User()
+  id = localStorage.getItem('userid')
+  token = localStorage.getItem('token')?.split(' ')[1]
+
+  dataCell?:any 
 
 
   constructor(private httpService: HttpService,) { }
@@ -40,12 +47,22 @@ export class TableDataNewComponent {
   ngOnInit(): void {
 
     this.getData()
+    this.getUser()
 
     this.gridOptions = {
       suppressColumnVirtualisation: true,
       suppressRowVirtualisation: true,
     }
  
+  }
+
+  getUser() {
+    if (this.token && this.id)
+      this.httpService.getUser(parseInt(this.id)).subscribe({
+        next: (response) => {
+          this.user = response
+        }
+      })
   }
 
   setFilter(columnName: string) {
@@ -72,12 +89,11 @@ export class TableDataNewComponent {
         this.rowData = response
         this.colDefs = _colDefs
 
-        console.log(this.colDefs)
-
         Object.keys(this.rowData![0]).forEach((title) => {
           if (title != 'id') {
             const filterCount: any[] = []
             _colDefs.push({ field: title, filter: FilterComponent, unSortIcon: true, headerName: new DivideStringSymbol().transform(title),
+              hide: false,
               cellStyle: title == 'We_have_Win_story_(Global)?_(Source_CRP)' || 
               title == 'We_have_Go-live_story_(Global)?_(Source_CRP)' || 
               title == 'We_have_Customer_story?_(Source_CRP)' || 
@@ -89,6 +105,7 @@ export class TableDataNewComponent {
               title == 'Customer_X_Account' || 
               title == 'Customer_Instagram_Account' ?
               {'background-color': '#bde3f7'} : {}
+              
           })
           }
         })
@@ -126,5 +143,9 @@ export class TableDataNewComponent {
 
   public getRowId: GetRowIdFunc = (params: GetRowIdParams) =>
     String(params.data.id);
+
+  clickOnCell(event: any){
+    this.dataCell = event
+  }
 
 }

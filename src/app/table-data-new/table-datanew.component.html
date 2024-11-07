@@ -9,7 +9,7 @@
         </svg>
          Clean all filters</button>
 
-        <button
+        <button *ngIf="user?.usertype == 'USER' || user?.usertype == 'ADMIN'" 
         class="rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
         (click)="onBtnExportCsv()">Download CSV file</button>
 
@@ -85,7 +85,7 @@
     <div class="w-full capitalize">
       <ag-grid-angular
         style="width: 100%; height: 100%;" [class]="'ag-theme-quartz'"
-        [rowData]="rowData" [getRowId]="getRowId" [columnDefs]="colDefs" (gridReady)="onGridReady($event)" />
+        [rowData]="rowData" [defaultCsvExportParams]="{allColumns: true}" [getRowId]="getRowId" [columnDefs]="colDefs" (cellClicked)="clickOnCell($event)" (gridReady)="onGridReady($event)" />
     </div>
   
   </div>
@@ -93,3 +93,5 @@
  
 
 </div>
+
+<app-popupcell [data]="dataCell"></app-popupcell>
