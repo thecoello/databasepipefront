@@ -35,11 +35,11 @@
       <div *ngFor="let filter of colDefs index as i">
         
       
-        <div *ngIf="i == 2" class="p-2 text-center text-[0.8rem] bg-blue-100 mb-2">Filter By <b>Company information</b></div>
+        <div *ngIf="i == 3" class="p-2 text-center text-[0.8rem] bg-blue-100 mb-2">Filter By <b>Company information</b></div>
 
-        <button *ngIf="i == 2" (click)="clearFilter([colDefs[2].field!,colDefs[3].field!,colDefs[4].field!,colDefs[7].field!,colDefs[8].field!,colDefs[9].field!])"  class="text-center block m-auto text-sm">Clean filter group</button>
+        <button *ngIf="i == 3" (click)="clearFilter([colDefs[3].field!,colDefs[5].field!,colDefs[6].field!,colDefs[7].field!,colDefs[8].field!,colDefs[10].field!])"  class="text-center block m-auto text-sm">Clean filter group</button>
 
-        <div *ngIf="(i  >= 2 && i <= 9) && i != 5 && i != 6">
+        <div *ngIf="(i  >= 3 && i <= 10) &&  i != 4 && i != 9">
           <div class="flex flex-col p-1">
             <app-filter-external [clearFilter]="clearFilterArr" [nameFilter]="filter.field!" [gridApi]="gridApi"
               [data]="setFilter(filter.field!)"></app-filter-external>
@@ -47,34 +47,36 @@
         </div>
 
         <div *ngIf="i == 11" class="p-2 text-center text-[0.8rem] bg-orange-100 mb-2 mt-2">Filter By <b>Industry details</b></div>
-        <button *ngIf="i == 11" (click)="clearFilter([colDefs[11].field!,colDefs[12].field!,colDefs[13].field!,colDefs[14].field!])"  class="text-center block m-auto text-sm">Clean filter group</button>
+        <button *ngIf="i == 11" (click)="clearFilter([colDefs[11].field!,colDefs[12].field!,colDefs[13].field!])"  class="text-center block m-auto text-sm">Clean filter group</button>
 
-        <div *ngIf="(i  >= 11 && i <= 14)">
+        <div *ngIf="(i  >= 11 && i <= 13)">
           <div class="flex flex-col p-1">
             <app-filter-external [clearFilter]="clearFilterArr" [nameFilter]="filter.field!" [gridApi]="gridApi"
               [data]="setFilter(filter.field!)"></app-filter-external>
           </div>
         </div>
 
-        <div *ngIf="i == 15" class="p-2 text-center text-[0.8rem] bg-green-100 mb-2 mt-2">Filter By <b>Project Details</b></div>
-        <button *ngIf="i == 15" (click)="clearFilter([colDefs[15].field!,colDefs[17].field!])"  class="text-center block m-auto text-sm">Clean filter group</button>
+        <div *ngIf="i == 15" class="p-2 text-center text-[0.8rem] bg-gray-500 mb-2 mt-2">Filter By <b>Success Story Details</b></div>
+        <button *ngIf="i == 15" (click)="clearFilter([colDefs[15].field!,colDefs[16].field!,colDefs[17].field!,colDefs[18].field!])"  class="text-center block m-auto text-sm">Clean filter group</button>
 
-        <div *ngIf="(i  >= 15 && i <= 17 && i != 16)">
+      <div *ngIf="(i  >= 15 && i <= 18)">
+        <div class="flex flex-col p-1">
+          <app-filter-external [clearFilter]="clearFilterArr" [nameFilter]="filter.field!" [gridApi]="gridApi"
+            [data]="setFilter(filter.field!)"></app-filter-external>
+        </div>
+      </div>
+
+        <div *ngIf="i == 38" class="p-2 text-center text-[0.8rem] bg-green-100 mb-2 mt-2">Filter By <b>Project Details</b></div>
+        <button *ngIf="i == 38" (click)="clearFilter([colDefs[38].field!])"  class="text-center block m-auto text-sm">Clean filter group</button>
+
+        <div *ngIf="(i == 38)">
           <div class="flex flex-col p-1">
             <app-filter-external [clearFilter]="clearFilterArr" [nameFilter]="filter.field!" [gridApi]="gridApi"
               [data]="setFilter(filter.field!)"></app-filter-external>
           </div>
         </div>
 
-          <div *ngIf="i == 19" class="p-2 text-center text-[0.8rem] bg-gray-500 mb-2 mt-2">Filter By <b>Success Story Details</b></div>
-          <button *ngIf="i == 19" (click)="clearFilter([colDefs[19].field!,colDefs[20].field!,colDefs[21].field!,colDefs[22].field!])"  class="text-center block m-auto text-sm">Clean filter group</button>
-
-        <div *ngIf="(i  >= 19 && i <= 22)">
-          <div class="flex flex-col p-1">
-            <app-filter-external [clearFilter]="clearFilterArr" [nameFilter]="filter.field!" [gridApi]="gridApi"
-              [data]="setFilter(filter.field!)"></app-filter-external>
-          </div>
-        </div>
+    
 
 
 

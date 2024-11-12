@@ -89,11 +89,11 @@ export class TableDataNewComponent {
         this.rowData = response
         this.colDefs = _colDefs
 
-        Object.keys(this.rowData![0]).forEach((title) => {
+        Object.keys(this.rowData![0]).forEach((title, i) => {
           if (title != 'id') {
             const filterCount: any[] = []
             _colDefs.push({ field: title, filter: FilterComponent, unSortIcon: true, headerName: new DivideStringSymbol().transform(title),
-              hide: false,
+              hide: i >= 0 && i <= 18 ? false : true, 
               cellStyle: title == 'We_have_Win_story_(Global)?_(Source_CRP)' || 
               title == 'We_have_Go-live_story_(Global)?_(Source_CRP)' || 
               title == 'We_have_Customer_story?_(Source_CRP)' || 
