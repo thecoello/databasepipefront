@@ -19,7 +19,11 @@
             $any(item).key.toUpperCase().includes('(PROJECTS)') ? ($any(item).key.replace('(Projects)','') | DivideStringSymbol): 
             $any(item).key.toUpperCase().includes('(FILTERED)') ? ($any(item).key.replace('(Filtered)','') | DivideStringSymbol): 
             $any(item).key.toUpperCase().includes('(PROJECT_KICK_OFF)') ? ($any(item).key.replace('(Project_Kick_Off)','') | DivideStringSymbol): 
-            $any(item).key | DivideStringSymbol}}:</b> 
+            $any(item).key | DivideStringSymbol}}: </b> 
+
+            <a *ngIf="$any(item).key.toUpperCase().includes('WE_HAVE_CUSTOMER_STORY') && $any(item).value.includes('Customer Reference platform')" href="https://s4hanacloudworldwide.com/customerstories/" target="_blank" class="text-light-blue-500" rel="noopener noreferrer">{{$any(item).value}}</a> 
+
+            <a *ngIf="$any(item).key.toUpperCase().includes('CUSTOMER_IS_AN_OFFCIAL_REFERENCE') && $any(item).value.includes('Customer Reference platform')" href="https://crpa4c19efc4.hana.ondemand.com/cat/ci/cip/#/profiles/filter/;annkSubID,k1,17022" target="_blank" class="text-light-blue-500" rel="noopener noreferrer">{{$any(item).value}}</a> 
 
             <a *ngIf="$any(item).value.toUpperCase().includes('HTTPS')" href="{{$any(item).value}}" target="_blank" class="text-light-blue-500" rel="noopener noreferrer">{{$any(item).value}}</a> 
 
@@ -28,7 +32,7 @@
             <a *ngIf="!$any(item).value.toUpperCase().includes('HTTPS') && !$any(item).value.toUpperCase().includes('WWW') && $any(item).value.toUpperCase().includes('.COM')" href="https://{{$any(item).value}}" target="_blank" class="text-light-blue-500" rel="noopener noreferrer">https://{{$any(item).value}}</a> 
             
             
-           {{!$any(item).value.toUpperCase().includes('HTTPS') &&  !$any(item).value.toUpperCase().includes('WWW') && !$any(item).value.toUpperCase().includes('.COM')? $any(item).value : null}}
+           {{!$any(item).value.toUpperCase().includes('HTTPS') &&  !$any(item).value.toUpperCase().includes('WWW') && !$any(item).value.toUpperCase().includes('.COM') && !$any(item).key.toUpperCase().includes('WE_HAVE_CUSTOMER_STORY') && !$any(item).value.includes('Customer Reference platform')? $any(item).value : null}}
 
           </span>
         </div>

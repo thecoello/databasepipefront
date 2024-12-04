@@ -18,11 +18,8 @@ export class PopupcellComponent  {
     this.data = null
   }
 
-  valueAscOrder = (
-    a: KeyValue<number, string>,
-    b: KeyValue<number, string>
-  ): number => {
-    return a.value.localeCompare(a.value);
+  valueAscOrder(a: KeyValue<number, string>, b: KeyValue<number, string>){
+    return a.value.toString().localeCompare(a.value);
   };
 
 
