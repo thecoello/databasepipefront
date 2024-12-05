@@ -24,8 +24,8 @@
 
   <div *ngIf="show">
     <cdk-virtual-scroll-viewport [itemSize]="20" class="ml-4 mg-4 mb-0 flex flex-col gap-5 h-[20vh] w-full">
-      <div *cdkVirtualFor="let row of data!">
-        <label class="flex items-center cursor-pointer relative gap-1 mt-2 mb-2">
+      <div *cdkVirtualFor="let row of data!" class="flex gap-1 items-center justify-start">
+        <label class="flex items-center cursor-pointer relative gap-2 mt-2 mb-2">
           <input type="checkbox" (click)="externalFilterChanged(row!)"
             class="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-slate-300 checked:bg-slate-800 checked:border-slate-800"
             id="{{row}}" [checked]="filtersArr.includes(row!) ? true : false" />
@@ -36,9 +36,14 @@
                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                 clip-rule="evenodd"></path>
             </svg>
+            
           </span>
-          {{row == "" ? 'Blank' : row}}
+
+          
         </label>
+
+        <p>{{row == "" ? 'Blank' : row}}</p>
+
 
       </div>
     </cdk-virtual-scroll-viewport>
