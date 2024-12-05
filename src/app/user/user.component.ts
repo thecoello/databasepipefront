@@ -14,6 +14,7 @@ import { User } from '../models/user';
 })
 export class UserComponent {
   user:User = new User()
+  userLoggedInfo:User = new User()
   userForm?: FormGroup
   errors?: Array<String> = []
   loading?: Boolean = false
@@ -29,6 +30,7 @@ export class UserComponent {
         this.id = e['id']
         if(this.id){
           this.getUser()
+          this.userLogged()
         }else{
           this.router.navigateByUrl('/')
         }
@@ -40,6 +42,19 @@ export class UserComponent {
       email: [this.user.email, [Validators.required, Validators.email]],
       usertype: [this.user.usertype, Validators.required],
     });
+  }
+
+  userLogged(){
+
+    const id = localStorage.getItem('userid')
+
+    this.httpService.getUser(parseInt(id!)).subscribe({
+      next:(response)=>{
+        this.userLoggedInfo = response
+        this.getUser()
+
+      }
+    })
   }
 
   getUser(){
